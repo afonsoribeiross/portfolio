@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Afonso Ribeiro — Engenheiro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:      #0b0f14;
+    --bg2:     #111620;
+    --bg3:     #181e2a;
+    --border:  #1e2535;
+    --border2: #2a3348;
+    --accent:  #00bcd4;
+    --accent2: #e07b39;
+    --text:    #dce6f0;
+    --muted:   #5a6a82;
+    --muted2:  #3a4a5e;
+    --font-mono: 'IBM Plex Mono', monospace;
+    --font-body: 'IBM Plex Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-weight: 300;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 4rem;
+    border-bottom: 1px solid var(--border);
+    background: rgba(11,15,20,0.94);
+    backdrop-filter: blur(10px);
+  }
+
+  .nav-logo {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--muted); font-weight: 400; }
+
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+
+  .nav-links a {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 7rem 4rem 4rem;
+    position: relative;
+    overflow: hidden;
+    gap: 3rem;
+  }
+
+  #hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px),
+      linear-gradient(var(--muted2) 1px, transparent 1px),
+      linear-gradient(90deg, var(--muted2) 1px, transparent 1px);
+    background-size: 30px 30px, 30px 30px, 150px 150px, 150px 150px;
+    opacity: 0.35;
+    mask-image: radial-gradient(ellipse 75% 90% at 65% 50%, black 20%, transparent 75%);
+  }
+
+  .hero-content { position: relative; z-index: 2; }
+
+  .hero-tag {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .hero-tag::before {
+    content: '';
+    display: block;
+    width: 28px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  h1 {
+    font-family: var(--font-body);
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    font-weight: 600;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 1.6rem;
+  }
+
+  h1 em { font-style: normal; color: var(--accent); }
+
+  .hero-desc {
+    font-size: 0.95rem;
+    color: var(--muted);
+    max-width: 400px;
+    line-height: 1.8;
+    margin-bottom: 2.4rem;
+  }
+
+  .hero-cta { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+
+  .btn {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.75rem 1.6rem;
+    border: 1px solid var(--border2);
+    color: var(--muted);
+    transition: all 0.22s;
+    display: inline-block;
+  }
+
+  .btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  .btn-primary {
+    background: var(--accent);
+    color: var(--bg);
+    border-color: var(--accent);
+    font-weight: 500;
+  }
+
+  .btn-primary:hover { background: transparent; color: var(--accent); }
+
+  .hero-graphic {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .sensor-canvas {
+    width: 100%;
+    max-width: 460px;
+    aspect-ratio: 4/3;
+    position: relative;
+  }
+
+  .sensor-canvas canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  /* SECTION BASE */
+  section { padding: 6rem 4rem; position: relative; }
+
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+  }
+
+  .section-label::before {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  h2 {
+    font-family: var(--font-body);
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 3rem;
+    color: var(--text);
+  }
+
+  /* SOBRE */
+  #sobre {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .sobre-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .sobre-text p {
+    color: var(--muted);
+    margin-bottom: 1.1rem;
+    font-size: 0.93rem;
+    line-height: 1.85;
+  }
+
+  .sobre-text p strong { color: var(--text); font-weight: 500; }
+
+  .sobre-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-top: 1.5rem;
+  }
+
+  .badge {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.75rem;
+    border: 1px solid var(--border2);
+    color: var(--muted);
+  }
+
+  .badge.accent { border-color: var(--accent); color: var(--accent); }
+
+  /* PROJETOS */
+  #projetos { background: var(--bg); }
+
+  .projetos-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .projeto-card {
+    background: var(--bg);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.28s;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .projeto-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.28s;
+  }
+
+  .projeto-card:hover { background: var(--bg2); }
+  .projeto-card:hover::after { transform: scaleX(1); }
+
+  .projeto-num {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--muted2);
+    margin-bottom: 1.4rem;
+  }
+
+  .projeto-tag {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 0.55rem;
+  }
+
+  .projeto-title {
+    font-family: var(--font-body);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.8rem;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+  }
+
+  .projeto-desc {
+    font-size: 0.83rem;
+    color: var(--muted);
+    line-height: 1.75;
+    flex: 1;
+    margin-bottom: 1.4rem;
+  }
+
+  .projeto-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-bottom: 1.4rem;
+  }
+
+  .stack-tag {
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    padding: 0.22rem 0.55rem;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    letter-spacing: 0.07em;
+  }
+
+  .projeto-link {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: gap 0.2s;
+  }
+
+  .projeto-link:hover { gap: 0.85rem; }
+  .projeto-link::after { content: '→'; }
+
+  /* CONTATO */
+  #contato { background: var(--bg); }
+
+  .contato-inner {
+    max-width: 680px;
+    border: 1px solid var(--border);
+    padding: 3rem;
+    position: relative;
+  }
+
+  .contato-inner::before {
+    content: '';
+    position: absolute;
+    top: -1px; left: 0;
+    width: 60px; height: 1px;
+    background: var(--accent);
+  }
+
+  .contato-desc {
+    color: var(--muted);
+    margin-bottom: 2.2rem;
+    font-size: 0.92rem;
+    line-height: 1.8;
+  }
+
+  .contato-links { display: flex; flex-direction: column; gap: 0.8rem; }
+
+  .contato-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    color: var(--muted);
+    padding: 0.9rem 1.1rem;
+    border: 1px solid var(--border);
+    transition: all 0.22s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .contato-item:hover { color: var(--text); border-color: var(--accent); background: var(--bg2); }
+
+  .contato-icon {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    width: 18px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .contato-label {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .contato-value {
+    margin-left: auto;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--accent);
+    opacity: 0.6;
+    transition: all 0.22s;
+  }
+
+  .contato-item:hover .contato-value { opacity: 1; }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 1.8rem 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  footer p {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  footer span { color: var(--accent); }
+
+  /* REVEAL */
+  .reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .reveal.visible { opacity: 1; transform: none; }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.32s; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    #hero {
+      grid-template-columns: 1fr;
+      padding: 5rem 1.5rem 3rem;
+      min-height: auto;
+    }
+    .hero-graphic { display: none; }
+    section { padding: 3rem 1.5rem; }
+    #stack { padding: 1.5rem !important; }
+    .sobre-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .projetos-grid { grid-template-columns: 1fr; }
+    .contato-inner { padding: 2rem 1.5rem; }
+    footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">afonso<span>.ribeiro</span></a>
+  <ul class="nav-links">
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#projetos">Projetos</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-content">
+    <div class="hero-tag">Engenharia · Automação · Desenvolvimento</div>
+    <h1>Afonso<br><em>Ribeiro</em></h1>
+    <p class="hero-desc">
+      Desenvolvendo projetos de engenharia, automação e ferramentas técnicas com Python e interfaces web.
+    </p>
+    <div class="hero-cta">
+      <a href="#projetos" class="btn btn-primary">Ver projetos</a>
+      <a href="#contato" class="btn">Contato</a>
+    </div>
+  </div>
+
+  <div class="hero-graphic">
+    <div class="sensor-canvas">
+      <canvas id="sensorChart" width="460" height="345"></canvas>
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE -->
+<section id="sobre">
+  <div style="max-width:1100px; margin:0 auto;">
+    <p class="section-label reveal">Quem sou</p>
+    <h2 class="reveal reveal-delay-1">Sobre mim</h2>
+    <div class="sobre-grid">
+      <div class="sobre-text reveal reveal-delay-2">
+        <p>
+          Estudante de <strong>Engenharia Mecânica na UEMA</strong>, com formação técnica em Manutenção Industrial pelo IFMA. Tenho interesse em máquinas, automação, manutenção preditiva e desenvolvimento de ferramentas técnicas.
+        </p>
+        <p>
+          Nos últimos projetos, venho conectando engenharia e programação para criar soluções aplicadas: dashboards, calculadoras técnicas, automações e interfaces web.
+        </p>
+        <div class="sobre-badges">
+          <span class="badge accent">UEMA · Eng. Mecânica</span>
+          <span class="badge">IFMA · Manutenção Industrial</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STACK -->
+<section id="stack" style="padding: 2rem 4rem; background: var(--bg);">
+  <div style="max-width:1100px; margin:0 auto;">
+    <p class="section-label reveal">Tecnologias</p>
+    <div class="sobre-badges reveal reveal-delay-1" style="margin-top: 0.8rem;">
+      <span class="badge accent">Python</span>
+      <span class="badge">HTML</span>
+      <span class="badge">CSS</span>
+      <span class="badge">JavaScript</span>
+      <span class="badge">n8n</span>
+    </div>
+  </div>
+</section>
+
+<!-- PROJETOS -->
+<section id="projetos">
+  <div style="max-width:1100px; margin:0 auto;">
+    <p class="section-label reveal">O que construí</p>
+    <h2 class="reveal reveal-delay-1">Projetos</h2>
+    <div class="projetos-grid">
+
+      <div class="projeto-card reveal">
+        <div class="projeto-num">// 01</div>
+        <div class="projeto-tag">Python · n8n</div>
+        <div class="projeto-title">Sistema de Manutenção Preditiva</div>
+        <p class="projeto-desc">
+          Dashboard industrial para monitoramento de sensores em tempo real. Detecta anomalias, dispara alertas automáticos por e-mail via n8n e registra histórico de leituras.
+        </p>
+        <div class="projeto-stack">
+          <span class="stack-tag">Python</span>
+          <span class="stack-tag">Streamlit</span>
+          <span class="stack-tag">n8n</span>
+        </div>
+        <a href="https://sistema-manutencao-preditiva.streamlit.app" target="_blank" class="projeto-link">Ver projeto</a>
+      </div>
+
+      <div class="projeto-card reveal reveal-delay-1">
+        <div class="projeto-num">// 02</div>
+        <div class="projeto-tag">Python · Engenharia</div>
+        <div class="projeto-title">Calculadora de Resistência dos Materiais</div>
+        <p class="projeto-desc">
+          Aplicação web para cálculos estruturais desenvolvida em Python com Streamlit. Módulos para Lei de Hooke e Círculo de Mohr, deployed na nuvem.
+        </p>
+        <div class="projeto-stack">
+          <span class="stack-tag">Python</span>
+        </div>
+        <a href="https://calculadora-resistencia.streamlit.app/" target="_blank" class="projeto-link">Ver projeto</a>
+      </div>
+
+      <div class="projeto-card reveal reveal-delay-2">
+        <div class="projeto-num">// 03</div>
+        <div class="projeto-tag">HTML · CSS · JavaScript</div>
+        <div class="projeto-title">Landing Page — Ateliê da Gio</div>
+        <p class="projeto-desc">
+          Landing page para ateliê artesanal. HTML/CSS/JS puro, sem frameworks — responsiva e com foco em conversão.
+        </p>
+        <div class="projeto-stack">
+          <span class="stack-tag">HTML5</span>
+          <span class="stack-tag">CSS3</span>
+          <span class="stack-tag">JavaScript</span>
+        </div>
+        <a href="https://atelie-da-gio.netlify.app/" target="_blank" class="projeto-link">Ver projeto</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section id="contato">
+  <div style="max-width:1100px; margin:0 auto;">
+    <p class="section-label reveal">Vamos conversar</p>
+    <h2 class="reveal reveal-delay-1">Contato</h2>
+    <div class="contato-inner reveal reveal-delay-2">
+      <p class="contato-desc">
+        Aberto a oportunidades de estágio, projetos técnicos e colaborações em engenharia e automação. Se achou algo interessante aqui, me chama.
+      </p>
+      <div class="contato-links">
+        <a href="https://linkedin.com/in/afonsorsousa" target="_blank" class="contato-item">
+          <span class="contato-icon">in</span>
+          <span class="contato-label">LinkedIn</span>
+          <span class="contato-value">afonsorsousa →</span>
+        </a>
+        <a href="https://github.com/afonsoribeiross" target="_blank" class="contato-item">
+          <span class="contato-icon">&lt;/&gt;</span>
+          <span class="contato-label">GitHub</span>
+          <span class="contato-value">afonsoribeiross →</span>
+        </a>
+        <a href="mailto:afonso_rsousa@outlook.com" class="contato-item">
+          <span class="contato-icon">@</span>
+          <span class="contato-label">E-mail</span>
+          <span class="contato-value">afonso_rsousa@outlook.com →</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 <span>Afonso Ribeiro</span> — São Luís, MA</p>
+  <p>Engenharia · Automação · Tecnologia</p>
+</footer>
+
+<script>
+  // SCROLL REVEAL
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // SENSOR CHART ANIMATION
+  const canvas = document.getElementById('sensorChart');
+  const ctx = canvas.getContext('2d');
+  canvas.width = 460;
+  canvas.height = 345;
+
+  const W = canvas.width;
+  const H = canvas.height;
+  const PAD = { top: 32, right: 20, bottom: 40, left: 48 };
+  const chartW = W - PAD.left - PAD.right;
+  const chartH = H - PAD.top - PAD.bottom;
+
+  const C_BG    = '#0b0f14';
+  const C_GRID  = '#1e2535';
+  const C_AXIS  = '#2a3348';
+  const C_LINE1 = '#00bcd4';
+  const C_LINE2 = '#e07b39';
+  const C_LIMIT = '#c0392b';
+  const C_TEXT  = '#5a6a82';
+
+  const POINTS = 80;
+  let t = 0;
+  let data1 = [], data2 = [];
+
+  function genValue(t, base, amp, freq, noise) {
+    return base + amp * Math.sin(freq * t) + (Math.random() - 0.5) * noise;
+  }
+
+  for (let i = 0; i < POINTS; i++) {
+    data1.push(genValue(i * 0.08, 4.2, 1.8, 0.6, 0.4));
+    data2.push(genValue(i * 0.08, 6.5, 1.2, 0.4, 0.3));
+  }
+
+  const LIMIT = 7.5;
+  const Y_MIN = 0;
+  const Y_MAX = 10;
+
+  function toX(i) { return PAD.left + (i / (POINTS - 1)) * chartW; }
+  function toY(v) { return PAD.top + chartH - ((v - Y_MIN) / (Y_MAX - Y_MIN)) * chartH; }
+
+  function drawFrame() {
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = C_BG;
+    ctx.fillRect(0, 0, W, H);
+
+    const gridLines = 5;
+    for (let i = 0; i <= gridLines; i++) {
+      const y = PAD.top + (i / gridLines) * chartH;
+      ctx.beginPath();
+      ctx.moveTo(PAD.left, y);
+      ctx.lineTo(PAD.left + chartW, y);
+      ctx.strokeStyle = C_GRID;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+      const val = Y_MAX - (i / gridLines) * (Y_MAX - Y_MIN);
+      ctx.fillStyle = C_TEXT;
+      ctx.font = '10px IBM Plex Mono, monospace';
+      ctx.textAlign = 'right';
+      ctx.fillText(val.toFixed(0), PAD.left - 8, y + 4);
+    }
+
+    const vLines = 8;
+    for (let i = 0; i <= vLines; i++) {
+      const x = PAD.left + (i / vLines) * chartW;
+      ctx.beginPath();
+      ctx.moveTo(x, PAD.top);
+      ctx.lineTo(x, PAD.top + chartH);
+      ctx.strokeStyle = C_GRID;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+
+    ctx.beginPath();
+    ctx.moveTo(PAD.left, PAD.top);
+    ctx.lineTo(PAD.left, PAD.top + chartH);
+    ctx.lineTo(PAD.left + chartW, PAD.top + chartH);
+    ctx.strokeStyle = C_AXIS;
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    const limitY = toY(LIMIT);
+    ctx.beginPath();
+    ctx.setLineDash([6, 4]);
+    ctx.moveTo(PAD.left, limitY);
+    ctx.lineTo(PAD.left + chartW, limitY);
+    ctx.strokeStyle = C_LIMIT;
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = C_LIMIT;
+    ctx.font = '9px IBM Plex Mono, monospace';
+    ctx.textAlign = 'left';
+    ctx.fillText('LIMITE ISO', PAD.left + 4, limitY - 5);
+
+    ctx.beginPath();
+    data1.forEach((v, i) => {
+      const x = toX(i), y = toY(v);
+      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    });
+    ctx.strokeStyle = C_LINE1;
+    ctx.lineWidth = 1.8;
+    ctx.stroke();
+
+    const last1 = data1[data1.length - 1];
+    ctx.beginPath();
+    ctx.arc(toX(POINTS - 1), toY(last1), 4, 0, Math.PI * 2);
+    ctx.fillStyle = C_LINE1;
+    ctx.fill();
+
+    ctx.beginPath();
+    data2.forEach((v, i) => {
+      const x = toX(i), y = toY(v);
+      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    });
+    ctx.strokeStyle = C_LINE2;
+    ctx.lineWidth = 1.8;
+    ctx.stroke();
+
+    const last2 = data2[data2.length - 1];
+    ctx.beginPath();
+    ctx.arc(toX(POINTS - 1), toY(last2), 4, 0, Math.PI * 2);
+    ctx.fillStyle = C_LINE2;
+    ctx.fill();
+
+    const legX = PAD.left + 8;
+    const legY = PAD.top + 12;
+    ctx.beginPath();
+    ctx.moveTo(legX, legY); ctx.lineTo(legX + 16, legY);
+    ctx.strokeStyle = C_LINE1; ctx.lineWidth = 2; ctx.stroke();
+    ctx.fillStyle = C_TEXT; ctx.font = '9px IBM Plex Mono, monospace';
+    ctx.textAlign = 'left';
+    ctx.fillText('VIBRAÇÃO (mm/s)', legX + 20, legY + 3);
+
+    ctx.beginPath();
+    ctx.moveTo(legX + 130, legY); ctx.lineTo(legX + 146, legY);
+    ctx.strokeStyle = C_LINE2; ctx.stroke();
+    ctx.fillStyle = C_TEXT;
+    ctx.fillText('TEMPERATURA (×)', legX + 150, legY + 3);
+
+    ctx.fillStyle = C_TEXT;
+    ctx.font = '9px IBM Plex Mono, monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText('LEITURAS EM TEMPO REAL', PAD.left + chartW / 2, H - 8);
+
+    ctx.fillStyle = C_LINE1;
+    ctx.font = '11px IBM Plex Mono, monospace';
+    ctx.textAlign = 'right';
+    ctx.fillText(last1.toFixed(2), W - PAD.right, toY(last1) + 4);
+
+    ctx.fillStyle = C_LINE2;
+    ctx.fillText(last2.toFixed(2), W - PAD.right, toY(last2) + 4);
+  }
+
+  function tick() {
+    t += 0.05;
+    data1.shift();
+    data2.shift();
+    data1.push(genValue(t, 4.2, 1.8, 0.6, 0.4));
+    data2.push(genValue(t, 6.5, 1.2, 0.4, 0.3));
+    drawFrame();
+    requestAnimationFrame(tick);
+  }
+
+  tick();
+</script>
+
+</body>
+</html>
